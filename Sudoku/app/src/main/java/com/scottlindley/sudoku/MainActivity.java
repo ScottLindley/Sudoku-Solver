@@ -14,11 +14,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private GridLayout mGridLayout;
-    private ArrayList<TextView> mCellViews;
-    private int mSelectedNumber;
+    public static ArrayList<TextView> mCellViews;
+    private  int sSelectedNumber;
     TextView[] mSelectedNumbers = new TextView[9];
 
-    private ArrayList<Integer> mSolution;
+    public static ArrayList<Integer> mSolution;
 
 
     private Puzzle mPuzzle;
@@ -31,10 +31,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSelectedNumber = 0;
+        sSelectedNumber = 0;
 
         initializeGridCells();
         initializeSelectionNumbers();
+
 
         mSolveButton = (Button)findViewById(R.id.solve_button);
         mSolveButton.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
     public void initializeGridCells() {
         mGridLayout = (GridLayout) findViewById(R.id.bord_layout);
         mCellViews = new ArrayList<>();
+        mSolution = new ArrayList<>();
+
+        for(int i=0; i<81; i++){
+            mSolution.add(0);
+        }
 
 
         for(int i=0; i<mGridLayout.getRowCount(); i++){
@@ -95,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener cellClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(mSelectedNumber!=0){
+            if(sSelectedNumber !=0){
                 TextView tv = (TextView)view;
-                tv.setText(Html.fromHtml("<b>"+mSelectedNumber+"</b>"));
+                tv.setText(Html.fromHtml("<b>"+ sSelectedNumber +"</b>"));
             }
         }
     };
@@ -115,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             TextView tv = (TextView)view;
-            mSelectedNumber = Integer.parseInt(tv.getText().toString());
+            sSelectedNumber = Integer.parseInt(tv.getText().toString());
 
             for(int i=0; i<mSelectedNumbers.length; i++){
                 mSelectedNumbers[i].setBackgroundColor(Color.rgb(231,97,1));

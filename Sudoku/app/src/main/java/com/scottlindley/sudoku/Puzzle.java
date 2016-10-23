@@ -1,8 +1,9 @@
 package com.scottlindley.sudoku;
 
-import android.util.Log;
-
 import java.util.ArrayList;
+
+import static com.scottlindley.sudoku.MainActivity.mCellViews;
+import static com.scottlindley.sudoku.MainActivity.mSolution;
 
 /**
  * Created by Scott Lindley on 10/22/2016.
@@ -12,7 +13,6 @@ public class Puzzle {
     private int[][] mRowCells;
     private int[][] mColumnCells;
     private int[][] mBoxCells;
-    private ArrayList<Integer> mSolution;
     private int[] mKey;
     private static final String TAG = "Puzzle";
     public static final int FORWARDS = 1;
@@ -77,7 +77,6 @@ public class Puzzle {
                     cellValue = 1;
                 }
                 for (int n = cellValue; n < 10; n++) {
-                    if (indexNumber!=0){Log.d(TAG, ""+n);}
                     boolean isInRow = false, isInColumn = false, isInBox = false;
                     int rowNumber = -1, columnNumber = -1, boxNumber = -1;
                     //Determine the row/cell/box of the current cell
@@ -110,6 +109,7 @@ public class Puzzle {
                     //if no conflicts are found, add to the solution RETURN TRUE
                     if (!conflict) {
                         mSolution.set(indexNumber, n);
+                        mCellViews.get(indexNumber).setText(""+n);
                         if(indexNumber<80) {
                             indexNumber++;
                             direction = FORWARDS;
