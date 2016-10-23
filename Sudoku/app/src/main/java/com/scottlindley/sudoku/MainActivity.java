@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -130,13 +131,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean solvePuzzle(){
         for (int i=0; i<mCellViews.size(); i++){
             String cellValue = mCellViews.get(i).getText().toString();
-            if(!cellValue.equals("")){
+            if(cellValue.length()>0){
                 mInputKey[i] = Integer.parseInt(cellValue);
             }
-            mPuzzle = new Puzzle(mInputKey);
-            mSolution = mPuzzle.getSolution();
-            setSolutionView();
         }
+        Log.d("MainActivity", "******\nsolvePuzzle: key input:\n"+mInputKey);
+        mPuzzle = new Puzzle(mInputKey);
+        mSolution = mPuzzle.getSolution();
+        setSolutionView();
         return true;
     }
 
