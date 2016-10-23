@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private int mSelectedNumber;
     TextView[] mSelectedNumbers = new TextView[9];
 
+    private ArrayList<Integer> mSolution;
+
 
     private Puzzle mPuzzle;
     private Button mSolveButton;
@@ -34,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
         initializeGridCells();
         initializeSelectionNumbers();
 
+        mSolveButton = (Button)findViewById(R.id.solve_button);
+        mSolveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solvePuzzle();
+            }
+        });
+
     }
 
     public void initializeGridCells() {
@@ -46,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView cellView = new TextView(MainActivity.this);
                 cellView.setGravity(Gravity.CENTER);
                 cellView.setBackgroundResource(R.drawable.border_small);
-                cellView.setWidth((55 * (getResources().getDisplayMetrics().densityDpi / 160)));
-                cellView.setHeight((55 * (getResources().getDisplayMetrics().densityDpi / 160)));
+                cellView.setWidth(109);
+                cellView.setHeight(109);
                 cellView.setTextColor(Color.rgb(0,0,0));
                 cellView.setTextSize(24f);
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams(
@@ -117,4 +127,22 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+    public boolean solvePuzzle(){
+        for (int i=0; i<mCellViews.size(); i++){
+            String cellValue = mCellViews.get(i).getText().toString();
+            if(!cellValue.equals("")){
+                mInputKey[i] = Integer.parseInt(cellValue);
+            }
+            mPuzzle = new Puzzle(mInputKey);
+            mSolution = mPuzzle.getSolution();
+            setSolutionView();
+        }
+        return true;
+    }
+
+    public void setSolutionView(){
+        for (int i=0; i<mCellViews.size(); i++){
+            mCellViews.get(i).setText(""+mSolution.get(i));
+        }
+    }
 }
