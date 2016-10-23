@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -135,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 mInputKey[i] = Integer.parseInt(cellValue);
             }
         }
-        Log.d("MainActivity", "******\nsolvePuzzle: key input:\n"+mInputKey);
         mPuzzle = new Puzzle(mInputKey);
         mSolution = mPuzzle.getSolution();
         setSolutionView();

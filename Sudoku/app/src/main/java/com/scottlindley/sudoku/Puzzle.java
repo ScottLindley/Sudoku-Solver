@@ -21,10 +21,7 @@ public class Puzzle {
     public Puzzle(int[] key) {
         mKey = key;
         initializeArrays();
-        Log.d(TAG, "*******\nPuzzle: Solution:\n" + mSolution);
-        Log.d(TAG, "*******\nPuzzle: Row Cells:\n" + mRowCells);
-        Log.d(TAG, "*******\nPuzzle: Column Cells:\n" + mColumnCells);
-        Log.d(TAG, "*******\nPuzzle: Box Cells:\n" + mBoxCells);
+
         solve();
     }
 
@@ -56,14 +53,6 @@ public class Puzzle {
                 {60, 61, 62, 69, 70, 71, 78, 79, 80},
         };
         mBoxCells = boxCells;
-
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++){
-                Log.d(TAG, "r"+mRowCells[i][j]);
-                Log.d(TAG, "c"+mColumnCells[i][j]);
-                Log.d(TAG, "b"+mBoxCells[i][j]);
-            }
-        }
 
 
 
@@ -121,11 +110,9 @@ public class Puzzle {
                     //if no conflicts are found, add to the solution RETURN TRUE
                     if (!conflict) {
                         mSolution.set(indexNumber, n);
-                        Log.d(TAG, "solve: added " + n + " to cell " + indexNumber);
                         if(indexNumber<80) {
                             indexNumber++;
                             direction = FORWARDS;
-                            Log.d(TAG, "solve: MOVING FORWARD");
                         }
                         break;
                     }
@@ -134,7 +121,6 @@ public class Puzzle {
                         if (indexNumber > 0) {
                             mSolution.set(indexNumber, 0);
                             indexNumber--;
-                            Log.d(TAG, "solve: MOVING BACKWARDS");
                             direction = BACKWARDS;
                             break;
                         }
@@ -142,11 +128,9 @@ public class Puzzle {
                 }
             }else{
                 if(direction == FORWARDS) {
-                    Log.d(TAG, "solve: MOVING FORWARD");
                     indexNumber++;
                 }else{
                     indexNumber--;
-                    Log.d(TAG, "solve: MOVING BACKWARDS");
                 }
             }
         }
